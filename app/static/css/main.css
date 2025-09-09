@@ -1,0 +1,11 @@
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; margin:0; padding:0;}
+.site-header{display:flex; justify-content:space-between; padding:12px 20px; background:#1F4E78; color:white;}
+.site-header .brand a{color:white; text-decoration:none; font-weight:700;}
+.nav a{color:white; margin-left:12px; text-decoration:none;}
+.container{padding:20px;}
+.alert{padding:8px 12px; margin-bottom:10px; border-radius:4px;}
+.alert.success{background:#d4edda;color:#155724;}
+.alert.danger{background:#f8d7da;color:#721c24;}
+table{width:100%; border-collapse:collapse;}
+th,td{padding:8px; border:1px solid #ddd;}
+.site-footer{padding:10px 20px; background:#f3f3f3; text-align:center; margin-top:20px;}

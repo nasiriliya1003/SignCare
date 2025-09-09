@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Login</h2>
+<form method="post" action="{{ url_for('auth.login') }}">
+  <label>Hospital slug (e.g. kfh)</label>
+  <input name="hospital_slug" required>
+
+  <label>Username</label>
+  <input name="username" required>
+
+  <label>Password</label>
+  <input name="password" type="password" required>
+
+  <button type="submit">Login</button>
+</form>
+{% endblock %}

@@ -1,0 +1,9 @@
+naseerenv/
+.env
+*.pyc
+__pycache__/
+migrations/
+*.db
+*.sqlite3
+.DS_Store
+

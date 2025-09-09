@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome to SignCare</h1>
+<p>Select a hospital or <a href="{{ url_for('auth.login') }}">login</a>.</p>
+
+<ul>
+  {% for h in hospitals %}
+    <li><a href="{{ url_for('auth.login') }}?next={{ url_for('main.index', hospital_slug=h.slug) }}">{{ h.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
