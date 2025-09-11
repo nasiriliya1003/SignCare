@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     hospital_id = db.Column(db.Integer, db.ForeignKey('hospital.id'), nullable=False)
     username = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(120))
-    password_hash = db.Column(db.String(128), nullable=False)
+    password_hash = db.Column(db.String(256), nullable=False)
     role = db.Column(db.String(32), default='staff')  # 'patient','doctor','admin','staff'
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 

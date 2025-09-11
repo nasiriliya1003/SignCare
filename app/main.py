@@ -184,15 +184,15 @@ def system_status(hospital_slug):
 def book_appointment(hospital_slug):
     hosp = Hospital.query.filter_by(slug=hospital_slug).first_or_404()
 
-    # Only allow patients of this hospital
-    if current_user.role != "patient" or current_user.hospital_id != hosp.id:
+    # Allow both patients AND doctors to book appointments
+    if current_user.hospital_id != hosp.id or current_user.role not in ("patient", "doctor", "admin", "staff"):
         abort(403)
 
     form = BookAppointmentForm()
     if form.validate_on_submit():
         appt = Appointment(
             hospital_id=hosp.id,
-            patient_user_id=current_user.id,
+            patient_user_id=current_user.id if current_user.role == "patient" else None,
             patient_name=form.patient_name.data.strip(),
             patient_contact=form.patient_contact.data.strip(),
             scheduled_at=form.scheduled_at.data
