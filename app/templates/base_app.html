@@ -15,13 +15,34 @@
         <h3>{{ hospital_name or hospital.name if hospital else "SignCare" }}</h3>
         <p class="text-muted">{{ current_user.username }} ({{ current_user.role }})</p>
       </div>
+      
+      
 
-      <a href="{{ url_for('main.create_user', hospital_slug=hospital.slug if hospital else '') }}"
-         class="nav-item {% if active=='create' %}active{% endif %}">Create User</a>
-      <a href="{{ url_for('main.view_users', hospital_slug=hospital.slug if hospital else '') }}"
-         class="nav-item {% if active=='view' %}active{% endif %}">View &amp; Update User</a>
-      <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
-         class="nav-item {% if active=='viz' %}active{% endif %}">Visualization</a>
+      {% if current_user.role == "admin" %}
+        <a href="{{ url_for('main.create_user', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='create' %}active{% endif %}">Create User</a>
+        <a href="{{ url_for('main.view_users', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='view' %}active{% endif %}">View &amp; Update User</a>
+      {% endif %}
+
+      {% if current_user.role == "doctor" %}
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Visualization</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Appointments</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Medical Summaries</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Notify Patient</a>
+      {% endif %}
+
+      {% if current_user.role == "staff" %}
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Visualization</a>
+      {% endif %}
+
+
+
     </aside>
 
     <main class="main-panel container">
