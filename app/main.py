@@ -1,10 +1,12 @@
 from werkzeug.security import generate_password_hash
-from .forms import CreateUserForm
+from .forms import CreateUserForm, BookAppointmentForm
 from .models import User, Hospital, Appointment   # added Appointment
 from .extensions import db
 from flask_login import login_required, current_user
 from flask import Blueprint, request, flash, render_template, redirect, url_for, abort
 from datetime import datetime
+
+
 
 main_bp = Blueprint('main', __name__, template_folder='templates')
 
@@ -175,3 +177,32 @@ def system_status(hospital_slug):
         abort(403)
     status_info = {}  # TODO: fetch system health metrics
     return render_template('status.html', hospital=hosp, status=status_info, active='status')
+
+
+@main_bp.route("/<hospital_slug>/book", methods=["GET", "POST"])
+@login_required
+def book_appointment(hospital_slug):
+    hosp = Hospital.query.filter_by(slug=hospital_slug).first_or_404()
+
+    # Only allow patients of this hospital
+    if current_user.role != "patient" or current_user.hospital_id != hosp.id:
+        abort(403)
+
+    form = BookAppointmentForm()
+    if form.validate_on_submit():
+        appt = Appointment(
+            hospital_id=hosp.id,
+            patient_user_id=current_user.id,
+            patient_name=form.patient_name.data.strip(),
+            patient_contact=form.patient_contact.data.strip(),
+            scheduled_at=form.scheduled_at.data
+        )
+        db.session.add(appt)
+        db.session.commit()
+        flash("Appointment booked successfully!", "success")
+        return redirect(url_for("main.index", hospital_slug=hosp.slug))
+
+    return render_template("book_appointment.html",
+                           hospital=hosp,
+                           form=form,
+                           active="book")

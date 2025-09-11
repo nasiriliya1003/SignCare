@@ -23,22 +23,39 @@
            class="nav-item {% if active=='create' %}active{% endif %}">Create User</a>
         <a href="{{ url_for('main.view_users', hospital_slug=hospital.slug if hospital else '') }}"
            class="nav-item {% if active=='view' %}active{% endif %}">View &amp; Update User</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">SignCare Chatbot</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Communicate</a>
       {% endif %}
 
       {% if current_user.role == "doctor" %}
         <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
-           class="nav-item {% if active=='viz' %}active{% endif %}">Visualization</a>
+           class="nav-item {% if active=='viz' %}active{% endif %}">Appointment</a>
         <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
-           class="nav-item {% if active=='viz' %}active{% endif %}">Appointments</a>
+           class="nav-item {% if active=='viz' %}active{% endif %}">Call Patient</a>
         <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
-           class="nav-item {% if active=='viz' %}active{% endif %}">Medical Summaries</a>
+           class="nav-item {% if active=='viz' %}active{% endif %}">Communicate</a>
         <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
-           class="nav-item {% if active=='viz' %}active{% endif %}">Notify Patient</a>
+           class="nav-item {% if active=='viz' %}active{% endif %}">Medical Summary</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">SignCare Chatbot</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Statistics</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Update Details</a>
       {% endif %}
 
       {% if current_user.role == "staff" %}
         <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
            class="nav-item {% if active=='viz' %}active{% endif %}">Visualization</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">Communicate</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">View Appointment</a>
+        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='viz' %}active{% endif %}">SignCare Chatbot</a>
+
       {% endif %}
 
 

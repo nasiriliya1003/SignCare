@@ -1,0 +1,27 @@
+{% extends "base_app.html" %}
+{% set active = 'book' %}
+{% block content %}
+<h2>Book an Appointment – {{ hospital.name }}</h2>
+<form method="post">
+  {{ form.hidden_tag() }}
+
+  <div>
+    {{ form.patient_name.label }}
+    {{ form.patient_name(class="input") }}
+    {% for e in form.patient_name.errors %}<span class="error">{{ e }}</span>{% endfor %}
+  </div>
+
+  <div>
+    {{ form.patient_contact.label }}
+    {{ form.patient_contact(class="input") }}
+  </div>
+
+  <div>
+    {{ form.scheduled_at.label }}
+    {{ form.scheduled_at(class="input") }}
+    {% for e in form.scheduled_at.errors %}<span class="error">{{ e }}</span>{% endfor %}
+  </div>
+
+  <button class="btn" type="submit">{{ form.submit.label.text }}</button>
+</form>
+{% endblock %}
