@@ -25,3 +25,27 @@ def index(hospital_slug):
         Appointment.hospital_id == hosp.id
     ).order_by(Appointment.scheduled_at.asc()).limit(50).all()
     return render_template('dashboard.html', hospital=hosp, appointments=appts)
+
+@main_bp.route('/<hospital_slug>/create-user')
+@login_required
+def create_user(hospital_slug):
+    hosp = Hospital.query.filter_by(slug=hospital_slug).first_or_404()
+    if current_user.hospital_id != hosp.id:
+        abort(403)
+    return render_template('create_user.html', hospital=hosp, active='create')
+
+@main_bp.route('/<hospital_slug>/users')
+@login_required
+def view_users(hospital_slug):
+    hosp = Hospital.query.filter_by(slug=hospital_slug).first_or_404()
+    if current_user.hospital_id != hosp.id:
+        abort(403)
+    return render_template('view_users.html', hospital=hosp, active='view')
+
+@main_bp.route('/<hospital_slug>/visualization')
+@login_required
+def visualization(hospital_slug):
+    hosp = Hospital.query.filter_by(slug=hospital_slug).first_or_404()
+    if current_user.hospital_id != hosp.id:
+        abort(403)
+    return render_template('visualization.html', hospital=hosp, active='viz')

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title or "SignCare" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  {% include 'header.html' %}
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="nav-section">
+        <h3>{{ hospital_name or hospital.name if hospital else "SignCare" }}</h3>
+        <p class="text-muted">{{ current_user.username }} ({{ current_user.role }})</p>
+      </div>
+
+      <a href="{{ url_for('main.create_user', hospital_slug=hospital.slug if hospital else '') }}"
+         class="nav-item {% if active=='create' %}active{% endif %}">Create User</a>
+      <a href="{{ url_for('main.view_users', hospital_slug=hospital.slug if hospital else '') }}"
+         class="nav-item {% if active=='view' %}active{% endif %}">View &amp; Update User</a>
+      <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
+         class="nav-item {% if active=='viz' %}active{% endif %}">Visualization</a>
+    </aside>
+
+    <main class="main-panel container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for cat, msg in messages %}
+              <div class="alert {{ cat }}">{{ msg }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  {% include 'footer.html' %}
+</body>
+</html>

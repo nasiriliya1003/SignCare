@@ -1,16 +1,47 @@
-{% extends "base.html" %}
+{% extends "base_public.html" %}
+
 {% block content %}
-<h2>Login</h2>
-<form method="post" action="{{ url_for('auth.login') }}">
-  <label>Hospital slug (e.g. kfh)</label>
-  <input name="hospital_slug" required>
+<div class="login-page">
+    <div class="login-card">
+        <div class="card-body">
+            <h1 class="text-center">SignCare Login</h1>
+            <p class="text-center text-muted">Please enter your credentials to access the dashboard.</p>
 
-  <label>Username</label>
-  <input name="username" required>
+            <form method="POST">
+                <!-- Hospital Field -->
+                <div class="form-group">
+                    <label for="hospital_slug">Hospital</label>
+                    <input type="text" 
+                           id="hospital_slug" 
+                           name="hospital_slug" 
+                           placeholder="e.g., kfh" 
+                           required>
+                    <small class="text-muted">Enter your hospital's unique short name.</small>
+                </div>
 
-  <label>Password</label>
-  <input name="password" type="password" required>
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" 
+                           id="username" 
+                           name="username" 
+                           placeholder="Enter your username" 
+                           required>
+                </div>
 
-  <button type="submit">Login</button>
-</form>
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           placeholder="Enter your password" 
+                           required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-login">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
