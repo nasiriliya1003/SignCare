@@ -39,12 +39,12 @@ class Appointment(db.Model):
     __tablename__ = 'appointment'
     id = db.Column(db.Integer, primary_key=True)
     hospital_id = db.Column(db.Integer, db.ForeignKey('hospital.id'), nullable=False)
-
-    # NEW: link appointment to a registered patient account
     patient_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-
     patient_name = db.Column(db.String(128), nullable=False)
-    patient_contact = db.Column(db.String(64))
+    patient_contact = db.Column(db.String(64))  # For phone number
+    patient_email = db.Column(db.String(120))   # NEW: Add this line for email
+    patient_district = db.Column(db.String(50))
     scheduled_at = db.Column(db.DateTime, nullable=False)
-    status = db.Column(db.String(32), default='booked')  # booked, called, completed, cancelled
+    status = db.Column(db.String(32), default='booked')
+    comments = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)

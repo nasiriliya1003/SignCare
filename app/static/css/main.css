@@ -1,5 +1,5 @@
 /* ============================================================================
-   SignCare - Main CSS (revamped)
+   SignCare - Main CSS (revamped & harmonized)
    - Single-file stylesheet: header, layout, sidebar, forms, controls, tables
    - Colors and UX inspired by modern chat UIs (calm neutrals + teal accent)
    ============================================================================ */
@@ -7,16 +7,16 @@
 /* ============================
    Root variables (palette & scale)
    ============================ */
-:root{
-  --bg: #f6f7f9;                 /* overall app background */
-  --surface: #ffffff;            /* cards, forms */
-  --brand-muted: #b3b5b7;        /* header neutral */
-  --primary: #10a37f;            /* main accent (teal) */
-  --primary-600: #0e8c6e;        /* darker accent for hover */
-  --accent: #2563eb;             /* secondary blue accent */
-  --text: #0f1720;               /* primary text */
-  --muted: #6b7280;              /* secondary text */
-  --light-border: #e6e9ee;       /* input / table borders */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --brand-muted: #b3b5b7;
+  --primary: #979b9a;
+  --primary-600: #b3b5b7f5;
+  --accent: #5587f3;
+  --text: #0f1720;
+  --muted: #6b7280;
+  --light-border: #e6e9ee;
   --focus-ring: rgba(16,163,127,0.14);
   --success: #28a745;
   --error: #dc3545;
@@ -34,413 +34,428 @@
 /* ============================
    Reset & base
    ============================ */
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
   font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  color:var(--text);
-  background:var(--bg);
-  line-height:1.45;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.45;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
-/* container that pushes footer down */
-.container{
-  max-width:var(--max-width);
-  margin:0 auto;
-  padding:1.25rem;
-  width:100%;
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.25rem;
+  width: 100%;
 }
-
-/* small utility */
-.text-muted{color:var(--muted)}
-.text-center{text-align:center}
+.text-muted { color: var(--muted); }
+.text-center { text-align: center; }
 
 /* ============================
    Header / Top Navigation
    ============================ */
-.site-header{
-  height:var(--header-height);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:1rem;
-  padding:0 1.25rem;
+.site-header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1.25rem;
   background: linear-gradient(180deg, var(--brand-muted), rgba(179,181,183,0.96));
-  color:#fff;
-  box-shadow:0 2px 6px rgba(0,0,0,0.06);
-  position:sticky;
-  top:0;
-  z-index:1200;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 1200;
 }
-
-/* brand */
-.site-header .brand a{
-  color:#fff;
-  font-weight:700;
-  text-decoration:none;
-  font-size:1.25rem;
-  letter-spacing:0.2px;
+.site-header .brand a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.25rem;
+  letter-spacing: 0.2px;
 }
-
-/* nav links */
-.site-header .nav{
-  display:flex;
-  gap:0.75rem;
-  align-items:center;
+.site-header .nav {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
-
-.site-header .nav a{
-  color:rgba(255,255,255,0.95);
-  text-decoration:none;
-  padding:0.5rem 0.6rem;
-  border-radius:8px;
-  font-weight:600;
-  transition:all var(--ease);
-  font-size:0.95rem;
+.site-header .nav a {
+  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all var(--ease);
 }
 .site-header .nav a:hover,
-.site-header .nav a:focus{
+.site-header .nav a:focus {
   background: rgba(255,255,255,0.06);
-  color:#fff;
-  outline:none;
+  color: #fff;
+  outline: none;
 }
-
-/* hamburger toggle (visible on mobile) - CSS-ready (JS toggles .nav-open on body/header) */
-.header-toggle{
-  display:none;
-  width:44px;height:44px;
-  background:transparent;
-  border:none;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  border-radius:8px;
-  color:#fff;
+.header-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #fff;
 }
-.header-toggle:focus{outline: 3px solid rgba(255,255,255,0.12)}
+.header-toggle:focus { outline: 3px solid rgba(255,255,255,0.12); }
 
-/* mobile behavior: when header is narrow, nav becomes stacked and hidden by default */
-@media (max-width:900px){
-  .header-toggle{display:flex}
-  .site-header .nav{display:none;position:absolute;right:1rem;top:calc(var(--header-height) + 8px);
-    background:var(--surface); color:var(--text); box-shadow:var(--shadow-md); border-radius:10px; padding:0.5rem; min-width:160px;
+/* Mobile nav toggle */
+@media (max-width: 900px) {
+  .header-toggle { display: flex; }
+  .site-header .nav {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    top: calc(var(--header-height) + 8px);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow-md);
+    border-radius: 10px;
+    padding: 0.5rem;
+    min-width: 160px;
+    flex-direction: column;
+    gap: 0.25rem;
   }
-  /* To show nav, add `.nav-open .site-header .nav` on body or container after JS toggle */
-  .nav a{ color:var(--text) }
-  body.nav-open .site-header .nav{display:flex;flex-direction:column;gap:0.25rem}
+  body.nav-open .site-header .nav { display: flex; }
+  .site-header .nav a { color: var(--text); }
 }
 
 /* ============================
    Page Layout: sidebar + main
    ============================ */
-.app-layout{ display:flex; gap:1rem; align-items:flex-start; width:100%; flex:1; }
-
-.sidebar{
-  width:260px;
-  min-width:220px;
-  background:var(--surface);
-  border:1px solid var(--light-border);
-  border-radius:10px;
-  padding:1rem;
-  box-shadow:var(--shadow-sm);
-  height:calc(100vh - var(--header-height) - 2rem);
-  position:sticky;
-  top:calc(var(--header-height) + 1rem);
-  overflow:auto;
+.app-layout {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+  flex: 1;
 }
-
-.sidebar .nav-section{ margin-bottom:1.25rem }
-.sidebar .nav-item{
-  display:flex; align-items:center; gap:0.75rem;
-  padding:0.55rem 0.6rem;
-  border-radius:8px;
-  color:var(--text);
-  text-decoration:none;
-  font-weight:600;
-  transition:all var(--ease);
+.sidebar {
+  width: 260px;
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--light-border);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+  height: calc(100vh - var(--header-height) - 2rem);
+  position: sticky;
+  top: calc(var(--header-height) + 1rem);
+  overflow: auto;
 }
-.sidebar .nav-item:hover{ background:rgba(16,163,127,0.06) }
-.sidebar .nav-item.active{ background: linear-gradient(90deg, rgba(16,163,127,0.12), rgba(37,99,235,0.05)); border-left:3px solid var(--primary) }
-
-.main-panel{
-  flex:1;
-  min-width:0;
-  padding-bottom:3rem; /* so last content doesn't hide behind footer */
+.sidebar .nav-section { margin-bottom: 1.25rem; }
+.sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.6rem;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--ease);
 }
-
-/* collapse sidebar on small devices */
-@media (max-width:900px){
-  .sidebar{display:none}
-  .app-layout{padding-top:1rem}
+.sidebar .nav-item:hover {
+  background: rgba(16,163,127,0.06);
+}
+.sidebar .nav-item.active {
+  background: linear-gradient(90deg, rgba(16,163,127,0.12), rgba(37,99,235,0.05));
+  border-left: 3px solid var(--primary);
+}
+.main-panel {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 3rem;
+}
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .app-layout { flex-direction: column; padding-top: 1rem; }
 }
 
 /* ============================
    Cards & Panels
    ============================ */
-.card{
-  background:var(--surface);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow-sm);
-  overflow:hidden;
-  transition:transform var(--ease), box-shadow var(--ease);
-  border:1px solid transparent;
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: transform var(--ease), box-shadow var(--ease);
 }
-.card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-md) }
-.card-body{ padding:1.25rem 1.5rem }
-.card-header{ padding:1rem 1.5rem; border-bottom:1px solid var(--light-border); background:transparent }
-.card-title{ font-size:1.1rem; font-weight:700; color:var(--text) }
-.card-sub{ color:var(--muted); font-size:0.95rem }
-
-/* small panel */
-.panel{ padding:1rem; border-radius:var(--radius-sm); background:var(--surface); border:1px solid var(--light-border); box-shadow:var(--shadow-sm) }
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.card-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--light-border);
+}
+.card-body { padding: 1.25rem 1.5rem; }
+.card-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.card-sub { font-size: 0.95rem; color: var(--muted); }
+.panel {
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--light-border);
+  box-shadow: var(--shadow-sm);
+}
 
 /* ============================
-   Typography (hero and section headings)
+   Typography
    ============================ */
-h1{ font-size:2.25rem; margin:0 0 0.6rem 0; font-weight:700 }
-h2{ font-size:1.75rem; margin:1.1rem 0 }
-h3{ font-size:1.2rem; color:var(--primary); margin:0 0 0.6rem 0 }
+h1 { font-size: 2.25rem; margin: 0 0 0.6rem 0; font-weight: 700; }
+h2 { font-size: 1.75rem; margin: 1.1rem 0; }
+h3 { font-size: 1.2rem; color: var(--primary); margin: 0 0 0.6rem 0; }
 
 /* ============================
    Forms & Inputs
    ============================ */
-form{ background:transparent; padding:0; border-radius:0 }
-label{ display:block; margin-bottom:0.4rem; font-weight:600; color:var(--text) }
-
-.input, input[type="text"], input[type="password"], input[type="email"], select, textarea{
-  display:block;
-  width:100%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,246,247,0.98));
-  border:1px solid var(--light-border);
-  padding:0.85rem 1rem;
-  font-size:1rem;
-  color:var(--text);
-  border-radius:10px;
-  transition: box-shadow var(--ease), border-color var(--ease), transform var(--ease);
-  box-shadow: none;
+label { display: block; margin-bottom: 0.4rem; font-weight: 600; color: var(--text); }
+input, select, textarea {
+  display: block;
+  width: 100%;
+  background: linear-gradient(180deg, #fff, #f5f6f7);
+  border: 1px solid var(--light-border);
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  color: var(--text);
+  border-radius: 10px;
   outline: none;
+  transition: box-shadow var(--ease), border-color var(--ease), transform var(--ease);
 }
-
-/* subtle inset style like modern chat inputs */
-.input:focus, input:focus, textarea:focus, select:focus{
-  border-color:var(--primary-600);
-  box-shadow:0 6px 20px var(--focus-ring);
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary-600);
+  box-shadow: 0 6px 20px var(--focus-ring);
   transform: translateY(-1px);
 }
-
-/* placeholder and muted text */
-::placeholder{ color: #a9b0b6 }
-
-/* textarea (chat-like) */
-textarea{
-  min-height:120px;
-  resize:vertical;
-  padding-top:0.9rem;
-  line-height:1.5;
-  transition: all var(--ease);
-  border-radius:12px;
-}
-
-/* floating helper text below inputs */
-.input-help{ font-size:0.87rem; color:var(--muted); margin-top:-0.5rem; margin-bottom:0.75rem }
+::placeholder { color: #a9b0b6; }
+textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
 
 /* ============================
    Buttons
    ============================ */
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:0.5rem;
-  padding:0.7rem 1.05rem;
-  border-radius:10px;
-  border:none;
-  cursor:pointer;
-  font-weight:700;
-  color:#fff;
-  background:var(--primary);
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.05rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
   transition: transform var(--ease), box-shadow var(--ease), background var(--ease);
-  text-decoration:none;
+  text-decoration: none;
 }
-.btn:hover{ background:var(--primary-600); transform: translateY(-2px); box-shadow:var(--shadow-sm) }
-.btn.secondary{ background:var(--accent) }
-.btn.ghost{
-  background:transparent; color:var(--text); border:1px solid var(--light-border); font-weight:600;
-  box-shadow:none;
+.btn:hover { background: var(--primary-600); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.btn.secondary { background: var(--accent); }
+.btn.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--light-border);
+  font-weight: 600;
 }
-.btn.block{ width:100% }
-
-/* special login button sizing */
-.btn-login{ padding:0.95rem; border-radius:12px }
-
-/* accessible focus */
-:focus{ outline:none }
-:focus-visible{ box-shadow:0 0 0 4px var(--focus-ring) }
+.btn.block { width: 100%; }
+.btn-login { padding: 0.95rem; border-radius: 12px; }
 
 /* ============================
-   Tabs (accessible, keyboard-friendly)
-   Markup example:
-   <div class="tabs">
-     <div role="tablist" class="tab-list">
-       <button role="tab" aria-selected="true">Tab 1</button>
-       <button role="tab">Tab 2</button>
-     </div>
-     <div class="tab-panels">
-       <div role="tabpanel">...</div>
-     </div>
-   </div>
+   Tabs
    ============================ */
-.tabs{ width:100% }
-.tab-list{ display:flex; gap:0.5rem; flex-wrap:wrap }
-.tab-list button[role="tab"]{
-  background:transparent;
-  border:1px solid var(--light-border);
-  padding:0.6rem 0.9rem;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-  color:var(--muted);
-  transition:all var(--ease);
+.tabs { width: 100%; }
+.tab-list { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.tab-list button[role="tab"] {
+  background: transparent;
+  border: 1px solid var(--light-border);
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--muted);
+  transition: all var(--ease);
 }
-.tab-list button[role="tab"][aria-selected="true"]{
-  background:var(--primary);
-  color:#fff;
-  border-color:transparent;
-  box-shadow:var(--shadow-sm);
+.tab-list button[aria-selected="true"] {
+  background: var(--primary);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
 }
-.tab-list button[role="tab"]:focus{ box-shadow: 0 8px 28px rgba(16,163,127,0.08) }
-
-/* panel area */
-.tab-panel{ padding:1rem 0 }
+.tab-panel { padding: 1rem 0; }
 
 /* ============================
-   Custom Checkbox & Radio (modern)
-   - works with markup like:
-     <label class="form-check"><input type="checkbox"> Label</label>
+   Custom Checkbox & Radio
    ============================ */
-.form-check{
-  display:flex; align-items:center; gap:0.6rem; cursor:pointer; user-select:none;
-  font-weight:600; color:var(--text);
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
 }
-.form-check input[type="checkbox"],
-.form-check input[type="radio"]{
-  /* hide native visuals but keep accessible */
-  -webkit-appearance:none; appearance:none;
-  width:20px; height:20px; min-width:20px; border-radius:6px;
-  border:1.5px solid var(--light-border); background:transparent; display:inline-block;
-  position:relative; transition: all var(--ease); cursor:pointer;
+.form-check input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--light-border);
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  transition: all var(--ease);
 }
-.form-check input[type="radio"]{ border-radius:50% }
-.form-check input[type="checkbox"]:hover,
-.form-check input[type="radio"]:hover{ border-color:var(--primary-600) }
-
-/* checkmark */
-.form-check input[type="checkbox"]::after{
-  content:""; position:absolute; left:6px; top:3px; width:6px; height:11px;
-  border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg) scale(0); transition: transform 120ms ease;
-  display:block;
+.form-check input[type="radio"] { border-radius: 50%; }
+.form-check input:checked {
+  background: linear-gradient(180deg, var(--primary), var(--primary-600));
+  border-color: transparent;
 }
-.form-check input[type="checkbox"]:checked{
-  background:linear-gradient(180deg, var(--primary), var(--primary-600));
-  border-color:transparent;
+.form-check input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 3px;
+  width: 6px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 120ms ease;
 }
-.form-check input[type="checkbox"]:checked::after{ transform: rotate(45deg) scale(1) }
-
-/* radio dot */
-.form-check input[type="radio"]::after{
-  content:""; position:absolute; left:5px; top:5px; width:8px; height:8px; border-radius:50%; background:transparent; transform:scale(0); transition:transform 120ms ease;
+.form-check input[type="checkbox"]:checked::after { transform: rotate(45deg) scale(1); }
+.form-check input[type="radio"]::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 120ms ease;
 }
-.form-check input[type="radio"]:checked{ background:linear-gradient(180deg, var(--primary), var(--primary-600)); border-color:transparent }
-.form-check input[type="radio"]:checked::after{ transform:scale(1); background:white }
-
-/* label spacing for checkboxes */
-.form-check span{ font-weight:600 }
+.form-check input[type="radio"]:checked::after { transform: scale(1); background: #fff; }
 
 /* ============================
-   Rich Textarea / Chat box look
+   Chatbox
    ============================ */
-.chatbox{
-  display:flex;
-  gap:0.75rem;
-  align-items:flex-end;
-  padding:0.6rem;
-  border-radius:12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(246,247,248,0.95));
-  border:1px solid var(--light-border);
-  box-shadow:var(--shadow-sm);
+.chatbox {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+  padding: 0.6rem;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff, #f6f7f8);
+  border: 1px solid var(--light-border);
+  box-shadow: var(--shadow-sm);
 }
-.chatbox textarea{ flex:1; min-height:48px; max-height:280px; padding:0.8rem 1rem; border-radius:10px }
+.chatbox textarea { flex: 1; min-height: 48px; max-height: 280px; }
 
 /* ============================
-   Tables (dashboard)
+   Tables
    ============================ */
-.table{
-  width:100%;
-  border-collapse:collapse;
-  background:var(--surface);
-  border-radius:var(--radius-sm);
-  overflow:hidden;
-  box-shadow:var(--shadow-sm);
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
-.table th, .table td{
-  padding:0.85rem 1rem; text-align:left; border-bottom:1px solid var(--light-border);
+.table th, .table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--light-border);
 }
-.table th{ background:linear-gradient(180deg, var(--brand-muted), rgba(179,181,183,0.95)); color:#fff; font-weight:700 }
-.table tr:hover{ background:rgba(16,163,127,0.03) }
+.table th {
+  background: linear-gradient(180deg, var(--brand-muted), rgba(179,181,183,0.95));
+  color: #fff;
+  font-weight: 700;
+}
+.table tr:hover { background: rgba(16,163,127,0.03); }
 
 /* ============================
-   Flash messages / alerts
+   Alerts
    ============================ */
-.flash-messages{ margin:1rem 0 }
-.alert{
-  padding:0.9rem 1rem; border-radius:10px; margin-bottom:0.8rem; font-weight:600;
-  border-left:4px solid transparent;
+.flash-messages { margin: 1rem 0; }
+.alert {
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  border-left: 4px solid transparent;
 }
-.alert.success{ background: #e9f8f0; color:var(--success); border-left-color:var(--success) }
-.alert.error{ background:#fdecea; color:var(--error); border-left-color:var(--error) }
-.alert.warning{ background:#fff8e6; color:var(--warning); border-left-color:var(--warning) }
-.alert.info{ background:var(--info); color:var(--text); border-left-color:var(--accent) }
+.alert.success { background: #e9f8f0; color: var(--success); border-left-color: var(--success); }
+.alert.error { background: #fdecea; color: var(--error); border-left-color: var(--error); }
+.alert.warning { background: #fff8e6; color: var(--warning); border-left-color: var(--warning); }
+.alert.info { background: var(--info); color: var(--text); border-left-color: var(--accent); }
 
 /* ============================
-   Footer - sticky bottom
+   Footer
    ============================ */
-.site-footer{
-  background: #f3f4f6; color:var(--muted); text-align:center; padding:1.25rem; margin-top:auto;
-  border-top:1px solid var(--light-border); font-weight:600
+.site-footer {
+  background: #f3f4f6;
+  color: var(--muted);
+  text-align: center;
+  padding: 1.25rem;
+  margin-top: auto;
+  border-top: 1px solid var(--light-border);
+  font-weight: 600;
 }
-.site-footer a{ color:var(--primary); text-decoration:none }
+.site-footer a { color: var(--primary); text-decoration: none; }
 
 /* ============================
    Utilities
    ============================ */
-.grid { display:grid; gap:1rem }
-.grid-2 { grid-template-columns: 1fr 1fr }
-.grid-3 { grid-template-columns: repeat(3, 1fr) }
-.kicker { font-size:0.95rem; color:var(--muted); margin-bottom:0.35rem }
+.grid { display: grid; gap: 1rem; }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.kicker { font-size: 0.95rem; color: var(--muted); margin-bottom: 0.35rem; }
 
 /* ============================
    Responsive tweaks
    ============================ */
-@media (max-width:1200px){ .grid-3{ grid-template-columns: 1fr 1fr } }
-@media (max-width:900px){
-  .container{ padding:0.75rem }
-  h1{ font-size:1.8rem }
-  .card-body{ padding:1rem }
-  .site-header{ padding:0.6rem 0.9rem }
-  .sidebar{ display:none }
-  .app-layout{ flex-direction:column }
-  .table th, .table td{ padding:0.7rem }
+@media (max-width: 1200px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 900px) {
+  .container { padding: 0.75rem; }
+  h1 { font-size: 1.8rem; }
+  .card-body { padding: 1rem; }
+  .site-header { padding: 0.6rem 0.9rem; }
+  .table th, .table td { padding: 0.7rem; }
 }
 
 /* ============================
-   Small accessibility helpers
+   Accessibility helpers
    ============================ */
-/* high contrast alternative class to increase contrast for visuals (use as needed) */
-.high-contrast .site-header{ background: #2f3336 }
-.high-contrast .table th{ background: #111827 }
+.high-contrast .site-header { background: #2f3336; }
+.high-contrast .table th { background: #111827; }
+
+/* ============================
+   DateTime Picker
+   ============================ */
+input[type="datetime-local"] {
+  background: var(--surface);
+  border: 1px solid var(--light-border);
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  width: 25%;
+  font: inherit;
+}
+input[type="datetime-local"]:focus {
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}

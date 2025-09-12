@@ -1,27 +1,52 @@
 {% extends "base_app.html" %}
 {% set active = 'book' %}
 {% block content %}
-<h2>Book an Appointment – {{ hospital.name }}</h2>
-<form method="post">
+<h2>Book an Appointment {{ hospital.name }}</h2>
+
+{% if current_user.role == 'doctor' %}
+{% endif %}
+
+<form method="post" class="appointment-form">
   {{ form.hidden_tag() }}
 
-  <div>
+  <div class="form-group">
     {{ form.patient_name.label }}
-    {{ form.patient_name(class="input") }}
+    {{ form.patient_name(class="form-input") }}
     {% for e in form.patient_name.errors %}<span class="error">{{ e }}</span>{% endfor %}
   </div>
 
-  <div>
-    {{ form.patient_contact.label }}
-    {{ form.patient_contact(class="input") }}
+  <div class="form-row">
+    <div class="form-group form-half">
+      {{ form.patient_email.label }}
+      {{ form.patient_email(class="form-input") }}
+      {% for e in form.patient_email.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    </div>
+    
+    <div class="form-group form-half">
+      {{ form.patient_phone.label }}
+      {{ form.patient_phone(class="form-input") }}
+      {% for e in form.patient_phone.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    </div>
   </div>
 
-  <div>
+  <div class="form-group">
+    {{ form.district.label }}
+    {{ form.district(class="form-input") }}
+    {% for e in form.district.errors %}<span class="error">{{ e }}</span>{% endfor %}
+  </div>
+
+  <div class="form-group">
     {{ form.scheduled_at.label }}
-    {{ form.scheduled_at(class="input") }}
+    {{ form.scheduled_at(class="form-input") }}
     {% for e in form.scheduled_at.errors %}<span class="error">{{ e }}</span>{% endfor %}
   </div>
 
-  <button class="btn" type="submit">{{ form.submit.label.text }}</button>
+  <div class="form-group">
+    {{ form.comments.label }}
+    {{ form.comments(class="form-input") }}
+    {% for e in form.comments.errors %}<span class="error">{{ e }}</span>{% endfor %}
+  </div>
+
+  <button class="btn btn-primary" type="submit">{{ form.submit.label.text }}</button>
 </form>
 {% endblock %}

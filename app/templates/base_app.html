@@ -32,8 +32,8 @@
       {% if current_user.role == "doctor" %}
         <a href="{{ url_for('main.book_appointment', hospital_slug=hospital.slug if hospital else '') }}"
             class="nav-item {% if active=='book' %}active{% endif %}">Appointment</a>
-        <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
-           class="nav-item {% if active=='viz' %}active{% endif %}">Call Patient</a>
+        <a href="{{ url_for('main.call_patient', hospital_slug=hospital.slug if hospital else '') }}"
+           class="nav-item {% if active=='call-patient' %}active{% endif %}">Call Patient</a>
         <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"
            class="nav-item {% if active=='viz' %}active{% endif %}">Communicate</a>
         <a href="{{ url_for('main.visualization', hospital_slug=hospital.slug if hospital else '') }}"

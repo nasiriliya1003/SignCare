@@ -184,7 +184,6 @@ def system_status(hospital_slug):
 def book_appointment(hospital_slug):
     hosp = Hospital.query.filter_by(slug=hospital_slug).first_or_404()
 
-    # Allow both patients AND doctors to book appointments
     if current_user.hospital_id != hosp.id or current_user.role not in ("patient", "doctor", "admin", "staff"):
         abort(403)
 
@@ -194,8 +193,11 @@ def book_appointment(hospital_slug):
             hospital_id=hosp.id,
             patient_user_id=current_user.id if current_user.role == "patient" else None,
             patient_name=form.patient_name.data.strip(),
-            patient_contact=form.patient_contact.data.strip(),
-            scheduled_at=form.scheduled_at.data
+            patient_contact=form.patient_phone.data.strip(),  # Phone goes here
+            patient_email=form.patient_email.data.strip() if form.patient_email.data else None,  # Email here
+            patient_district=form.district.data,
+            scheduled_at=form.scheduled_at.data,
+            comments=form.comments.data
         )
         db.session.add(appt)
         db.session.commit()
@@ -206,3 +208,67 @@ def book_appointment(hospital_slug):
                            hospital=hosp,
                            form=form,
                            active="book")
+
+@main_bp.route('/<hospital_slug>/call-patient')
+@login_required
+def call_patient(hospital_slug):
+    hosp = Hospital.query.filter_by(slug=hospital_slug).first_or_404()
+    
+    if current_user.role != "doctor":
+        abort(403)
+    
+    # Get today's appointments that are still booked (not called/completed)
+    today = datetime.utcnow().date()
+    appointments = Appointment.query.filter(
+        Appointment.hospital_id == hosp.id,
+        Appointment.status == 'booked',
+        db.func.date(Appointment.scheduled_at) == today
+    ).order_by(Appointment.scheduled_at.asc()).all()
+    
+    return render_template('call_patient.html', 
+                         hospital=hosp, 
+                         appointments=appointments,
+                         now=datetime.utcnow(),
+                         active='call')
+
+@main_bp.route('/api/bellman/notify', methods=['POST'])
+@login_required
+def bellman_notify():
+    if current_user.role != "doctor":
+        abort(403)
+    
+    data = request.get_json()
+    patient_id = data.get('patient_id')
+    room_number = data.get('room_number')
+    message = data.get('message', 'Please proceed to consultation')
+    
+    # Here you would integrate with Bellman Visit API
+    # This is a simulation - replace with actual API calls
+    
+    # Simulate API call to Bellman system
+    try:
+        # Actual integration would look like:
+        # response = requests.post(
+        #     BELLMAN_API_URL,
+        #     json={
+        #         'patient_id': patient_id,
+        #         'vibration_pattern': 'call',
+        #         'message': f"Room {room_number}: {message}",
+        #         'priority': 'high'
+        #     },
+        #     headers={'Authorization': f'Bearer {BELLMAN_API_KEY}'}
+        # )
+        
+        # For now, we'll just log it
+        print(f"Bellman notification: Patient {patient_id}, Room {room_number}")
+        
+        # Update appointment status
+        appointment = Appointment.query.get(patient_id)
+        if appointment:
+            appointment.status = 'called'
+            db.session.commit()
+        
+        return jsonify({'success': True, 'message': 'Notification sent'})
+    
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
